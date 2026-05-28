@@ -1,0 +1,441 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LSM Backend API",
+    "version": "1.0.0",
+    "description": "Reconstructed API specification for lab management equipment, components, maintenance, and user data."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api"
+    }
+  ],
+  "paths": {
+    "/equipment": {
+      "get": {
+        "summary": "List all equipment",
+        "responses": {
+          "200": {
+            "description": "Equipment list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Equipment" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new equipment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/EquipmentCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created equipment",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Equipment" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/equipment/{id}": {
+      "get": {
+        "summary": "Retrieve equipment by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Equipment details", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Equipment" } } } },
+          "404": { "description": "Equipment not found" }
+        }
+      },
+      "put": {
+        "summary": "Update equipment",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EquipmentUpdate" } } }
+        },
+        "responses": {
+          "200": { "description": "Updated equipment", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Equipment" } } } },
+          "404": { "description": "Equipment not found" }
+        }
+      },
+      "delete": {
+        "summary": "Delete equipment",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "No content" },
+          "404": { "description": "Equipment not found" }
+        }
+      }
+    },
+    "/components": {
+      "get": {
+        "summary": "List all components",
+        "responses": {
+          "200": {
+            "description": "Component list",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Component" } }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new component",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ComponentCreate" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Created component",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Component" } } }
+          }
+        }
+      }
+    },
+    "/components/{id}": {
+      "get": {
+        "summary": "Retrieve component by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Component details", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Component" } } } },
+          "404": { "description": "Component not found" }
+        }
+      },
+      "put": {
+        "summary": "Update a component",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ComponentUpdate" } } }
+        },
+        "responses": {
+          "200": { "description": "Updated component", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Component" } } } },
+          "404": { "description": "Component not found" }
+        }
+      },
+      "delete": {
+        "summary": "Delete a component",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "No content" },
+          "404": { "description": "Component not found" }
+        }
+      }
+    },
+    "/maintenance": {
+      "get": {
+        "summary": "List all maintenance records",
+        "responses": {
+          "200": {
+            "description": "Maintenance list",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Maintenance" } }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a maintenance record",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MaintenanceCreate" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Created maintenance record",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Maintenance" } } }
+          }
+        }
+      }
+    },
+    "/maintenance/{id}": {
+      "get": {
+        "summary": "Retrieve a maintenance record by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Maintenance details", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Maintenance" } } } },
+          "404": { "description": "Maintenance record not found" }
+        }
+      },
+      "put": {
+        "summary": "Update a maintenance record",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MaintenanceUpdate" } } }
+        },
+        "responses": {
+          "200": { "description": "Updated maintenance record", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Maintenance" } } } },
+          "404": { "description": "Maintenance record not found" }
+        }
+      },
+      "delete": {
+        "summary": "Delete a maintenance record",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "No content" },
+          "404": { "description": "Maintenance record not found" }
+        }
+      }
+    },
+    "/maintenance/equipment/{equipmentId}": {
+      "get": {
+        "summary": "List maintenance records for an equipment item",
+        "parameters": [
+          { "name": "equipmentId", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Equipment maintenance list", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Maintenance" } } } } }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "List all users",
+        "responses": {
+          "200": { "description": "User list", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/User" } } } } }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Retrieve a user by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "User details", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/User" } } } },
+          "404": { "description": "User not found" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate a user by email",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "format": "email" }
+                },
+                "required": ["email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": { "type": "string" },
+                    "user": { "$ref": "#/components/schemas/User" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Invalid credentials" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Equipment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "inventoryNumber": { "type": "string" },
+          "name": { "type": "string" },
+          "commissioningDate": { "type": "string", "format": "date" },
+          "lastMaintenanceDate": { "type": "string", "format": "date" },
+          "nextMaintenanceDate": { "type": "string", "format": "date" },
+          "maintenanceHours": { "type": "integer" },
+          "maintenanceNotes": { "type": "string" },
+          "maintenancePeriod": { "type": "integer" },
+          "status": { "type": "string" }
+        },
+        "required": [
+          "id",
+          "inventoryNumber",
+          "name",
+          "commissioningDate",
+          "lastMaintenanceDate",
+          "nextMaintenanceDate",
+          "maintenanceHours",
+          "maintenanceNotes",
+          "maintenancePeriod",
+          "status"
+        ]
+      },
+      "EquipmentCreate": {
+        "type": "object",
+        "properties": {
+          "inventoryNumber": { "type": "string" },
+          "name": { "type": "string" },
+          "commissioningDate": { "type": "string", "format": "date" },
+          "lastMaintenanceDate": { "type": "string", "format": "date" },
+          "nextMaintenanceDate": { "type": "string", "format": "date" },
+          "maintenanceHours": { "type": "integer" },
+          "maintenanceNotes": { "type": "string" },
+          "maintenancePeriod": { "type": "integer" },
+          "status": { "type": "string" }
+        },
+        "required": [
+          "inventoryNumber",
+          "name",
+          "commissioningDate",
+          "lastMaintenanceDate",
+          "nextMaintenanceDate"
+        ]
+      },
+      "EquipmentUpdate": {
+        "type": "object",
+        "properties": {
+          "inventoryNumber": { "type": "string" },
+          "name": { "type": "string" },
+          "commissioningDate": { "type": "string", "format": "date" },
+          "lastMaintenanceDate": { "type": "string", "format": "date" },
+          "nextMaintenanceDate": { "type": "string", "format": "date" },
+          "maintenanceHours": { "type": "integer" },
+          "maintenanceNotes": { "type": "string" },
+          "maintenancePeriod": { "type": "integer" },
+          "status": { "type": "string" }
+        }
+      },
+      "Component": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "equipmentId": { "type": "integer" },
+          "lifespanDays": { "type": "integer" },
+          "quantityOnStock": { "type": "integer" },
+          "purchaseDate": { "type": "string", "format": "date" },
+          "lastReplacementDate": { "type": "string", "format": "date" }
+        },
+        "required": ["id", "name", "equipmentId", "lifespanDays", "quantityOnStock", "purchaseDate", "lastReplacementDate"]
+      },
+      "ComponentCreate": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "equipmentId": { "type": "integer" },
+          "lifespanDays": { "type": "integer" },
+          "quantityOnStock": { "type": "integer" },
+          "purchaseDate": { "type": "string", "format": "date" },
+          "lastReplacementDate": { "type": "string", "format": "date" }
+        },
+        "required": ["name", "equipmentId", "purchaseDate", "lastReplacementDate"]
+      },
+      "ComponentUpdate": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "equipmentId": { "type": "integer" },
+          "lifespanDays": { "type": "integer" },
+          "quantityOnStock": { "type": "integer" },
+          "purchaseDate": { "type": "string", "format": "date" },
+          "lastReplacementDate": { "type": "string", "format": "date" }
+        }
+      },
+      "Maintenance": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "equipmentId": { "type": "integer" },
+          "date": { "type": "string", "format": "date" },
+          "type": { "type": "string" },
+          "workPerformed": { "type": "string" },
+          "performedBy": { "type": "string" },
+          "checkedBy": { "type": "string" },
+          "hoursSpent": { "type": "integer" },
+          "notes": { "type": ["string", "null"] }
+        },
+        "required": ["id", "equipmentId", "date", "type", "workPerformed", "performedBy", "checkedBy", "hoursSpent"]
+      },
+      "MaintenanceCreate": {
+        "type": "object",
+        "properties": {
+          "equipmentId": { "type": "integer" },
+          "date": { "type": "string", "format": "date" },
+          "type": { "type": "string" },
+          "workPerformed": { "type": "string" },
+          "performedBy": { "type": "string" },
+          "checkedBy": { "type": "string" },
+          "hoursSpent": { "type": "integer" },
+          "notes": { "type": "string" }
+        },
+        "required": ["equipmentId", "date", "type", "workPerformed", "performedBy", "checkedBy", "hoursSpent"]
+      },
+      "MaintenanceUpdate": {
+        "type": "object",
+        "properties": {
+          "equipmentId": { "type": "integer" },
+          "date": { "type": "string", "format": "date" },
+          "type": { "type": "string" },
+          "workPerformed": { "type": "string" },
+          "performedBy": { "type": "string" },
+          "checkedBy": { "type": "string" },
+          "hoursSpent": { "type": "integer" },
+          "notes": { "type": "string" }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "surname": { "type": "string" },
+          "patronymic": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "position": { "type": "string" }
+        },
+        "required": ["id", "name", "surname", "patronymic", "email", "position"]
+      }
+    }
+  }
+}

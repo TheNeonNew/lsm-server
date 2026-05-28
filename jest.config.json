@@ -1,0 +1,14 @@
+{
+  "preset": "bun",
+  "testEnvironment": "bun",
+  "testMatch": ["**/tests/**/*.test.ts", "**/?(*.)+(spec|test).ts"],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+  "transform": {
+    "^.+\\.tsx?$": ["bun-types", {}]
+  },
+  "collectCoverageFrom": [
+    "src/**/*.ts",
+    "!src/**/*.d.ts",
+    "!src/db/migrations/**"
+  ]
+}
